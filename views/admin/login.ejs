@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login · <%= settings.site_name || 'CMS' %></title>
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body class="login-body">
+  <div class="login-card">
+    <a href="/" class="login-brand"><span class="brand-mark">◆</span> <%= settings.site_name || 'CMS' %></a>
+    <h1>Admin sign in</h1>
+    <p class="muted">Manage products, orders, pages, and posts.</p>
+    <% if (error) { %><div class="admin-flash admin-flash-error"><%= error %></div><% } %>
+    <form action="/admin/login" method="post" class="form">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" name="username" autofocus required />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" required />
+      </div>
+      <button type="submit" class="btn btn-lg btn-block">Sign in</button>
+    </form>
+    <p class="muted small login-hint">Default demo login: <strong>admin</strong> / <strong>admin123</strong></p>
+    <a href="/" class="link-arrow center">← Back to site</a>
+  </div>
+</body>
+</html>

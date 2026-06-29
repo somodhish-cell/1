@@ -1,0 +1,44 @@
+<section class="page-head">
+  <div class="container">
+    <h1>Shop</h1>
+    <p class="muted">Browse the full collection — filter by category or search.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container shop-layout">
+    <aside class="shop-sidebar">
+      <form action="/shop" method="get" class="search-form">
+        <input type="search" name="q" placeholder="Search products…" value="<%= search %>" />
+        <button class="btn btn-sm" type="submit">Go</button>
+      </form>
+      <h4 class="sidebar-title">Categories</h4>
+      <ul class="cat-list">
+        <li><a href="/shop" class="<%= !activeCategory ? 'active' : '' %>">All products</a></li>
+        <% categories.forEach(function (c) { %>
+          <li>
+            <a href="/shop?category=<%= c.slug %>" class="<%= activeCategory === c.slug ? 'active' : '' %>">
+              <%= c.name %> <span class="muted small">(<%= c.product_count %>)</span>
+            </a>
+          </li>
+        <% }); %>
+      </ul>
+    </aside>
+
+    <div class="shop-main">
+      <p class="results-count"><%= products.length %> product<%= products.length === 1 ? '' : 's' %><% if (search) { %> for “<%= search %>”<% } %></p>
+      <% if (products.length) { %>
+        <div class="product-grid">
+          <% products.forEach(function (product) { %>
+            <%- include('../partials/product-card', { product }) %>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <div class="empty-state">
+          <p>No products found.</p>
+          <a href="/shop" class="btn btn-ghost btn-sm">Clear filters</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>

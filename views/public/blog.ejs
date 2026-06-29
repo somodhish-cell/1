@@ -1,0 +1,30 @@
+<section class="page-head">
+  <div class="container">
+    <h1>Blog</h1>
+    <p class="muted">Notes on design, products, and how this site is built.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (posts.length) { %>
+      <div class="post-grid post-grid-lg">
+        <% posts.forEach(function (post) { %>
+          <article class="post-card">
+            <a href="/blog/<%= post.slug %>" class="post-thumb">
+              <% if (post.image) { %><img src="<%= post.image %>" alt="<%= post.title %>" loading="lazy" /><% } %>
+            </a>
+            <div class="post-card-body">
+              <span class="muted small"><%= formatDate(post.published_at) %></span>
+              <h3><a href="/blog/<%= post.slug %>"><%= post.title %></a></h3>
+              <p class="muted"><%= truncate(post.excerpt || post.body, 140) %></p>
+              <a href="/blog/<%= post.slug %>" class="link-arrow">Read more →</a>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p class="muted">No posts published yet.</p>
+    <% } %>
+  </div>
+</section>

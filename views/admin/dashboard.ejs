@@ -1,0 +1,70 @@
+<div class="stat-grid">
+  <a class="stat-card" href="/admin/products">
+    <span class="stat-num"><%= stats.products %></span>
+    <span class="stat-label">Products</span>
+  </a>
+  <a class="stat-card" href="/admin/orders">
+    <span class="stat-num"><%= stats.orders %></span>
+    <span class="stat-label">Orders<% if (stats.pendingOrders) { %> · <span class="pill"><%= stats.pendingOrders %> pending</span><% } %></span>
+  </a>
+  <a class="stat-card" href="/admin/posts">
+    <span class="stat-num"><%= stats.posts %></span>
+    <span class="stat-label">Blog posts</span>
+  </a>
+  <a class="stat-card" href="/admin/messages">
+    <span class="stat-num"><%= stats.unreadMessages %></span>
+    <span class="stat-label">Unread messages</span>
+  </a>
+  <div class="stat-card stat-card-accent">
+    <span class="stat-num"><%= money(stats.revenue) %></span>
+    <span class="stat-label">Revenue (paid + shipped)</span>
+  </div>
+</div>
+
+<div class="admin-cols">
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Recent orders</h2>
+      <a href="/admin/orders" class="link-arrow">All orders →</a>
+    </div>
+    <% if (recentOrders.length) { %>
+      <table class="table">
+        <thead><tr><th>#</th><th>Customer</th><th>Total</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+          <% recentOrders.forEach(function (o) { %>
+            <tr>
+              <td>#<%= o.id %></td>
+              <td><%= o.customer_name %></td>
+              <td><%= money(o.total) %></td>
+              <td><span class="badge badge-<%= o.status %>"><%= o.status %></span></td>
+              <td><a href="/admin/orders/<%= o.id %>" class="link-arrow">View</a></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %><p class="muted">No orders yet.</p><% } %>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Low stock</h2>
+      <a href="/admin/products" class="link-arrow">Manage →</a>
+    </div>
+    <% if (lowStock.length) { %>
+      <ul class="list">
+        <% lowStock.forEach(function (p) { %>
+          <li>
+            <a href="/admin/products/<%= p.id %>/edit"><%= p.name %></a>
+            <span class="badge <%= p.stock <= 0 ? 'badge-cancelled' : 'badge-pending' %>"><%= p.stock %> left</span>
+          </li>
+        <% }); %>
+      </ul>
+    <% } else { %><p class="muted">All products are well stocked.</p><% } %>
+
+    <div class="quick-actions">
+      <a href="/admin/products/new" class="btn btn-sm">+ Product</a>
+      <a href="/admin/posts/new" class="btn btn-sm btn-ghost">+ Post</a>
+      <a href="/admin/pages/new" class="btn btn-sm btn-ghost">+ Page</a>
+    </div>
+  </section>
+</div>

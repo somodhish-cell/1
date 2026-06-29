@@ -1,0 +1,48 @@
+<section class="page-head">
+  <div class="container"><h1>Your cart</h1></div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <% if (!items.length) { %>
+      <div class="empty-state">
+        <p>Your cart is empty.</p>
+        <a href="/shop" class="btn">Browse the shop</a>
+      </div>
+    <% } else { %>
+      <div class="cart-layout">
+        <div class="cart-items">
+          <% items.forEach(function (item) { %>
+            <div class="cart-row">
+              <a href="/product/<%= item.slug %>" class="cart-thumb">
+                <% if (item.image) { %><img src="<%= item.image %>" alt="<%= item.name %>" /><% } %>
+              </a>
+              <div class="cart-row-main">
+                <a href="/product/<%= item.slug %>" class="cart-name"><%= item.name %></a>
+                <span class="muted small"><%= money(item.price) %> each</span>
+              </div>
+              <form action="/cart/update" method="post" class="cart-qty-form">
+                <input type="hidden" name="product_id" value="<%= item.id %>" />
+                <input type="number" name="qty" value="<%= item.qty %>" min="0" <% if (item.stock > 0) { %>max="<%= item.stock %>"<% } %> onchange="this.form.submit()" />
+              </form>
+              <span class="cart-line-total"><%= money(item.price * item.qty) %></span>
+              <form action="/cart/remove" method="post">
+                <input type="hidden" name="product_id" value="<%= item.id %>" />
+                <button class="icon-btn" title="Remove" type="submit">✕</button>
+              </form>
+            </div>
+          <% }); %>
+        </div>
+
+        <aside class="cart-summary card">
+          <h3>Summary</h3>
+          <div class="summary-row"><span>Subtotal (<%= count %> item<%= count === 1 ? '' : 's' %>)</span><strong><%= money(subtotal) %></strong></div>
+          <div class="summary-row muted"><span>Shipping</span><span>Calculated at checkout</span></div>
+          <div class="summary-row total"><span>Total</span><strong><%= money(subtotal) %></strong></div>
+          <a href="/cart/checkout" class="btn btn-lg btn-block">Proceed to checkout</a>
+          <a href="/shop" class="link-arrow center">← Continue shopping</a>
+        </aside>
+      </div>
+    <% } %>
+  </div>
+</section>

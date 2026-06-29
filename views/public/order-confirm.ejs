@@ -1,0 +1,14 @@
+<section class="section">
+  <div class="container container-narrow">
+    <div class="confirm card">
+      <div class="confirm-check">✓</div>
+      <h1>Thank you, <%= name %>!</h1>
+      <p class="lead">Your order <strong>#<%= String(orderId).padStart(4, '0') %></strong> has been placed.</p>
+      <p class="muted">A confirmation would normally be sent to <strong><%= email %></strong>. Your order total was <strong><%= money(total) %></strong>.</p>
+      <div class="confirm-actions">
+        <a href="/shop" class="btn">Continue shopping</a>
+        <a href="/" class="btn btn-ghost">Back to home</a>
+      </div>
+    </div>
+  </div>
+</section>

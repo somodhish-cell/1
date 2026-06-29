@@ -1,0 +1,39 @@
+<div class="admin-cols">
+  <div class="panel">
+    <div class="panel-head"><h2>Categories</h2></div>
+    <% if (categories.length) { %>
+      <table class="table">
+        <thead><tr><th>Name</th><th>Slug</th><th>Products</th><th></th></tr></thead>
+        <tbody>
+          <% categories.forEach(function (c) { %>
+            <tr>
+              <td><strong><%= c.name %></strong></td>
+              <td class="muted"><%= c.slug %></td>
+              <td><%= c.product_count %></td>
+              <td class="cell-actions">
+                <form action="/admin/categories/<%= c.id %>/delete" method="post" onsubmit="return confirm('Delete this category? Products will keep existing but become uncategorized.')">
+                  <button class="link-danger" type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %><p class="muted">No categories yet.</p><% } %>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Add category</h2></div>
+    <form class="form" action="/admin/categories" method="post">
+      <div class="field">
+        <label>Name</label>
+        <input type="text" name="name" required />
+      </div>
+      <div class="field">
+        <label>Sort order</label>
+        <input type="number" name="sort" value="0" />
+      </div>
+      <button type="submit" class="btn">Add category</button>
+    </form>
+  </div>
+</div>

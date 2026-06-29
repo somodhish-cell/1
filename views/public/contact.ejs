@@ -1,0 +1,41 @@
+<section class="page-head">
+  <div class="container">
+    <h1>Contact us</h1>
+    <p class="muted">Questions, ideas, or just saying hello — we read everything.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-layout">
+    <div class="contact-info">
+      <h3>Reach us directly</h3>
+      <% if (settings.contact_email) { %><p><strong>Email</strong><br><a href="mailto:<%= settings.contact_email %>"><%= settings.contact_email %></a></p><% } %>
+      <% if (settings.contact_phone) { %><p><strong>Phone</strong><br><%= settings.contact_phone %></p><% } %>
+      <% if (settings.address) { %><p><strong>Address</strong><br><%= settings.address %></p><% } %>
+    </div>
+
+    <form class="card form" action="/contact" method="post">
+      <h3>Send a message</h3>
+      <div class="field">
+        <label>Your name</label>
+        <input type="text" name="name" value="<%= form.name || '' %>" />
+        <% if (errors.name) { %><span class="field-error"><%= errors.name %></span><% } %>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" value="<%= form.email || '' %>" />
+        <% if (errors.email) { %><span class="field-error"><%= errors.email %></span><% } %>
+      </div>
+      <div class="field">
+        <label>Subject</label>
+        <input type="text" name="subject" value="<%= form.subject || '' %>" />
+      </div>
+      <div class="field">
+        <label>Message</label>
+        <textarea name="message" rows="5"><%= form.message || '' %></textarea>
+        <% if (errors.message) { %><span class="field-error"><%= errors.message %></span><% } %>
+      </div>
+      <button type="submit" class="btn btn-lg">Send message</button>
+    </form>
+  </div>
+</section>

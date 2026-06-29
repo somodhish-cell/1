@@ -1,0 +1,8 @@
+# Local-only artifacts that must never ship to Vercel
+data/
+public/uploads/*
+!public/uploads/.gitkeep
+*.log
+.env
+.env.local
+node_modules

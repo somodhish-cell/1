@@ -1,0 +1,47 @@
+<div class="panel">
+  <div class="panel-head">
+    <h2><%= isNew ? 'New page' : 'Edit page' %></h2>
+    <a href="/admin/pages" class="link-arrow">← Back to pages</a>
+  </div>
+
+  <form class="form admin-form" method="post"
+        action="<%= isNew ? '/admin/pages' : '/admin/pages/' + page.id %>">
+    <div class="form-grid">
+      <div class="form-col">
+        <div class="field">
+          <label>Title *</label>
+          <input type="text" name="title" value="<%= page.title || '' %>" required />
+        </div>
+        <div class="field">
+          <label>Body (Markdown supported)</label>
+          <textarea name="body" rows="18" class="mono"><%= page.body || '' %></textarea>
+        </div>
+      </div>
+      <div class="form-col form-col-side">
+        <div class="field">
+          <label>Status</label>
+          <select name="status">
+            <option value="published" <%= page.status === 'published' ? 'selected' : '' %>>Published</option>
+            <option value="draft" <%= page.status === 'draft' ? 'selected' : '' %>>Draft</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Slug (URL)</label>
+          <input type="text" name="slug" value="<%= page.slug || '' %>" placeholder="auto from title" />
+          <span class="muted small">Lives at /page/your-slug</span>
+        </div>
+        <div class="field">
+          <label>Nav order</label>
+          <input type="number" name="sort" value="<%= page.sort != null ? page.sort : 0 %>" />
+        </div>
+        <label class="check">
+          <input type="checkbox" name="show_in_nav" value="1" <%= page.show_in_nav ? 'checked' : '' %> /> Show in main navigation
+        </label>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-lg"><%= isNew ? 'Create page' : 'Save changes' %></button>
+      <a href="/admin/pages" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,52 @@
+<div class="panel">
+  <div class="panel-head">
+    <h2><%= isNew ? 'New post' : 'Edit post' %></h2>
+    <a href="/admin/posts" class="link-arrow">← Back to posts</a>
+  </div>
+
+  <form class="form admin-form" method="post"
+        action="<%= isNew ? '/admin/posts' : '/admin/posts/' + post.id %>"
+        enctype="multipart/form-data">
+    <div class="form-grid">
+      <div class="form-col">
+        <div class="field">
+          <label>Title *</label>
+          <input type="text" name="title" value="<%= post.title || '' %>" required />
+        </div>
+        <div class="field">
+          <label>Excerpt</label>
+          <textarea name="excerpt" rows="2" placeholder="Short summary shown in listings"><%= post.excerpt || '' %></textarea>
+        </div>
+        <div class="field">
+          <label>Body (Markdown supported)</label>
+          <textarea name="body" rows="16" class="mono"><%= post.body || '' %></textarea>
+        </div>
+      </div>
+
+      <div class="form-col form-col-side">
+        <div class="field">
+          <label>Status</label>
+          <select name="status">
+            <option value="published" <%= post.status === 'published' ? 'selected' : '' %>>Published</option>
+            <option value="draft" <%= post.status === 'draft' ? 'selected' : '' %>>Draft</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Slug (URL)</label>
+          <input type="text" name="slug" value="<%= post.slug || '' %>" placeholder="auto from title" />
+        </div>
+        <div class="field">
+          <label>Featured image</label>
+          <% if (post.image) { %><div class="current-image"><img src="<%= post.image %>" alt="" /></div><% } %>
+          <input type="file" name="image" accept="image/*" />
+          <input type="text" name="image_url" placeholder="…or paste an image URL" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-lg"><%= isNew ? 'Create post' : 'Save changes' %></button>
+      <a href="/admin/posts" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>

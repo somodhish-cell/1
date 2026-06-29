@@ -1,0 +1,11 @@
+<section class="section">
+  <div class="container container-narrow center-block">
+    <p class="big-code">500</p>
+    <h1><%= title %></h1>
+    <p class="muted"><%= message %></p>
+    <% if (typeof stack !== 'undefined' && stack) { %>
+      <pre class="error-stack"><%= stack %></pre>
+    <% } %>
+    <a href="/" class="btn">Back to home</a>
+  </div>
+</section>

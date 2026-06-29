@@ -1,0 +1,29 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark">◆</span>
+      <span class="brand-name"><%= settings.site_name || 'Aurora Goods' %></span>
+    </a>
+
+    <button class="nav-toggle" aria-label="Toggle menu" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav" data-nav>
+      <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Home</a>
+      <a href="/shop" class="<%= currentPath.startsWith('/shop') || currentPath.startsWith('/product') ? 'active' : '' %>">Shop</a>
+      <a href="/blog" class="<%= currentPath.startsWith('/blog') ? 'active' : '' %>">Blog</a>
+      <% navPages.forEach(function (p) { %>
+        <a href="/page/<%= p.slug %>" class="<%= currentPath === '/page/' + p.slug ? 'active' : '' %>"><%= p.title %></a>
+      <% }); %>
+      <a href="/contact" class="<%= currentPath === '/contact' ? 'active' : '' %>">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="cart-link" href="/cart" aria-label="Cart">
+        <span class="cart-icon">🛒</span>
+        <% if (cart.count > 0) { %><span class="cart-badge"><%= cart.count %></span><% } %>
+      </a>
+    </div>
+  </div>
+</header>

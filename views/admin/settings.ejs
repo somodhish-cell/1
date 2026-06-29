@@ -1,0 +1,37 @@
+<form class="form admin-form" action="/admin/settings" method="post">
+  <div class="admin-cols">
+    <div class="panel">
+      <div class="panel-head"><h2>Brand</h2></div>
+      <div class="field"><label>Site name</label><input type="text" name="site_name" value="<%= settings.site_name || '' %>" /></div>
+      <div class="field"><label>Tagline</label><input type="text" name="tagline" value="<%= settings.tagline || '' %>" /></div>
+      <div class="grid-2">
+        <div class="field"><label>Currency code</label><input type="text" name="currency" value="<%= settings.currency || 'USD' %>" /></div>
+        <div class="field"><label>Currency symbol</label><input type="text" name="currency_symbol" value="<%= settings.currency_symbol || '$' %>" /></div>
+      </div>
+
+      <div class="panel-head" style="margin-top:1rem"><h2>Homepage hero</h2></div>
+      <div class="field"><label>Hero title</label><input type="text" name="hero_title" value="<%= settings.hero_title || '' %>" /></div>
+      <div class="field"><label>Hero subtitle</label><textarea name="hero_subtitle" rows="3"><%= settings.hero_subtitle || '' %></textarea></div>
+      <div class="field"><label>Footer about text</label><textarea name="footer_about" rows="3"><%= settings.footer_about || '' %></textarea></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h2>Contact &amp; social</h2></div>
+      <div class="field"><label>Contact email</label><input type="email" name="contact_email" value="<%= settings.contact_email || '' %>" /></div>
+      <div class="field"><label>Contact phone</label><input type="text" name="contact_phone" value="<%= settings.contact_phone || '' %>" /></div>
+      <div class="field"><label>Address</label><input type="text" name="address" value="<%= settings.address || '' %>" /></div>
+      <div class="field"><label>Twitter / X URL</label><input type="text" name="social_twitter" value="<%= settings.social_twitter || '' %>" /></div>
+      <div class="field"><label>Instagram URL</label><input type="text" name="social_instagram" value="<%= settings.social_instagram || '' %>" /></div>
+
+      <div class="panel-head" style="margin-top:1rem"><h2>Security</h2></div>
+      <div class="field">
+        <label>Change admin password</label>
+        <input type="password" name="new_password" placeholder="Leave blank to keep current" autocomplete="new-password" />
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-lg">Save settings</button>
+  </div>
+</form>

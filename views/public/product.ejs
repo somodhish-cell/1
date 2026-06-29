@@ -1,0 +1,62 @@
+<section class="section">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="/">Home</a> / <a href="/shop">Shop</a>
+      <% if (product.category_slug) { %> / <a href="/shop?category=<%= product.category_slug %>"><%= product.category_name %></a><% } %>
+      / <span><%= product.name %></span>
+    </nav>
+
+    <div class="product-detail">
+      <div class="product-gallery">
+        <% if (product.image) { %>
+          <img src="<%= product.image %>" alt="<%= product.name %>" />
+        <% } else { %>
+          <div class="thumb-placeholder large">No image</div>
+        <% } %>
+      </div>
+
+      <div class="product-info">
+        <% if (product.category_name) { %><span class="product-cat"><%= product.category_name %></span><% } %>
+        <h1><%= product.name %></h1>
+        <div class="price price-lg"><%= money(product.price) %></div>
+
+        <% if (product.stock > 0) { %>
+          <p class="stock in-stock">● In stock<% if (product.stock <= 5) { %> — only <%= product.stock %> left<% } %></p>
+        <% } else { %>
+          <p class="stock out-stock">● Out of stock</p>
+        <% } %>
+
+        <div class="product-desc"><%- markdown(product.description) %></div>
+
+        <% if (product.stock > 0) { %>
+          <form action="/cart/add" method="post" class="add-form">
+            <input type="hidden" name="product_id" value="<%= product.id %>" />
+            <input type="hidden" name="redirect" value="cart" />
+            <label class="qty-label">Qty
+              <input type="number" name="qty" value="1" min="1" max="<%= product.stock %>" />
+            </label>
+            <button type="submit" class="btn btn-lg">Add to cart</button>
+          </form>
+        <% } else { %>
+          <button class="btn btn-lg" disabled>Sold out</button>
+        <% } %>
+
+        <ul class="product-meta">
+          <li><span>SKU</span><strong>#<%= String(product.id).padStart(4, '0') %></strong></li>
+          <li><span>Availability</span><strong><%= product.stock > 0 ? product.stock + ' in stock' : 'Out of stock' %></strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <% if (related.length) { %>
+      <div class="section-head" style="margin-top:3rem">
+        <h2>You might also like</h2>
+      </div>
+      <div class="product-grid">
+        <% related.forEach(function (product) { %>
+          <%- include('../partials/product-card', { product }) %>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</section>

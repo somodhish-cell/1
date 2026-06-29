@@ -1,0 +1,29 @@
+<div class="panel">
+  <div class="panel-head">
+    <h2><%= posts.length %> blog posts</h2>
+    <a href="/admin/posts/new" class="btn btn-sm">+ New post</a>
+  </div>
+  <% if (posts.length) { %>
+    <table class="table table-hover">
+      <thead><tr><th>Title</th><th>Status</th><th>Published</th><th></th></tr></thead>
+      <tbody>
+        <% posts.forEach(function (p) { %>
+          <tr>
+            <td><strong><%= p.title %></strong><br><span class="muted small">/blog/<%= p.slug %></span></td>
+            <td><span class="badge badge-<%= p.status === 'published' ? 'paid' : 'pending' %>"><%= p.status %></span></td>
+            <td class="muted"><%= formatDate(p.published_at) %></td>
+            <td class="cell-actions">
+              <a href="/blog/<%= p.slug %>" target="_blank" class="link-arrow">View</a>
+              <a href="/admin/posts/<%= p.id %>/edit" class="link-arrow">Edit</a>
+              <form action="/admin/posts/<%= p.id %>/delete" method="post" onsubmit="return confirm('Delete this post?')">
+                <button class="link-danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <div class="empty-state"><p>No posts yet.</p><a href="/admin/posts/new" class="btn">Write your first post</a></div>
+  <% } %>
+</div>

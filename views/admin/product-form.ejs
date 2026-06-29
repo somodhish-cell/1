@@ -1,0 +1,74 @@
+<div class="panel">
+  <div class="panel-head">
+    <h2><%= isNew ? 'New product' : 'Edit product' %></h2>
+    <a href="/admin/products" class="link-arrow">← Back to products</a>
+  </div>
+
+  <form class="form admin-form" method="post"
+        action="<%= isNew ? '/admin/products' : '/admin/products/' + product.id %>"
+        enctype="multipart/form-data">
+    <div class="form-grid">
+      <div class="form-col">
+        <div class="field">
+          <label>Name *</label>
+          <input type="text" name="name" value="<%= product.name || '' %>" required />
+        </div>
+        <div class="field">
+          <label>Description (Markdown supported)</label>
+          <textarea name="description" rows="8"><%= product.description || '' %></textarea>
+        </div>
+        <div class="grid-2">
+          <div class="field">
+            <label>Price</label>
+            <input type="text" name="price" value="<%= product.price ? (product.price / 100).toFixed(2) : '0.00' %>" placeholder="19.99" />
+          </div>
+          <div class="field">
+            <label>Stock</label>
+            <input type="number" name="stock" value="<%= product.stock != null ? product.stock : 0 %>" min="0" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Slug (URL)</label>
+          <input type="text" name="slug" value="<%= product.slug || '' %>" placeholder="auto-generated from name" />
+        </div>
+      </div>
+
+      <div class="form-col form-col-side">
+        <div class="field">
+          <label>Status</label>
+          <select name="status">
+            <option value="published" <%= product.status === 'published' ? 'selected' : '' %>>Published</option>
+            <option value="draft" <%= product.status === 'draft' ? 'selected' : '' %>>Draft</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <select name="category_id">
+            <option value="">— none —</option>
+            <% categories.forEach(function (c) { %>
+              <option value="<%= c.id %>" <%= product.category_id === c.id ? 'selected' : '' %>><%= c.name %></option>
+            <% }); %>
+          </select>
+        </div>
+        <label class="check">
+          <input type="checkbox" name="featured" value="1" <%= product.featured ? 'checked' : '' %> /> Featured product
+        </label>
+
+        <div class="field">
+          <label>Image</label>
+          <% if (product.image) { %>
+            <div class="current-image"><img src="<%= product.image %>" alt="" /></div>
+          <% } %>
+          <input type="file" name="image" accept="image/*" />
+          <input type="text" name="image_url" placeholder="…or paste an image URL" value="" />
+          <span class="muted small">Upload a file or paste a URL. Leave blank to keep current.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-lg"><%= isNew ? 'Create product' : 'Save changes' %></button>
+      <a href="/admin/products" class="btn btn-ghost">Cancel</a>
+    </div>
+  </form>
+</div>

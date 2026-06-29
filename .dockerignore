@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+data
+public/uploads/*
+!public/uploads/.gitkeep
+.git
+.gitignore
+.env
+.env.local
+*.log
+.vercel
+README.md

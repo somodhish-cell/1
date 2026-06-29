@@ -1,0 +1,27 @@
+<div class="panel">
+  <div class="panel-head"><h2><%= messages.length %> messages</h2></div>
+  <% if (messages.length) { %>
+    <div class="message-list">
+      <% messages.forEach(function (m) { %>
+        <div class="message-item <%= m.is_read ? '' : 'unread' %>">
+          <div class="message-head">
+            <div>
+              <strong><%= m.name %></strong>
+              <a href="mailto:<%= m.email %>" class="muted small"><%= m.email %></a>
+              <% if (!m.is_read) { %><span class="pill">New</span><% } %>
+            </div>
+            <span class="muted small"><%= formatDate(m.created_at) %></span>
+          </div>
+          <% if (m.subject) { %><div class="message-subject"><%= m.subject %></div><% } %>
+          <p class="message-body"><%= m.body %></p>
+          <div class="message-actions">
+            <% if (!m.is_read) { %>
+              <form action="/admin/messages/<%= m.id %>/read" method="post"><button class="link-arrow" type="submit">Mark as read</button></form>
+            <% } %>
+            <form action="/admin/messages/<%= m.id %>/delete" method="post" onsubmit="return confirm('Delete this message?')"><button class="link-danger" type="submit">Delete</button></form>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %><div class="empty-state"><p>No messages yet.</p></div><% } %>
+</div>

@@ -1,0 +1,86 @@
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow"><%= settings.tagline || '' %></p>
+      <h1><%= settings.hero_title || 'Welcome' %></h1>
+      <p class="lead"><%= settings.hero_subtitle || '' %></p>
+      <div class="hero-actions">
+        <a href="/shop" class="btn btn-lg">Shop the collection</a>
+        <a href="/blog" class="btn btn-ghost btn-lg">Read the blog</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="hero-blob"></div>
+      <div class="hero-card">
+        <span class="hero-card-emoji">🛍️</span>
+        <strong>Fully dynamic</strong>
+        <span class="muted small">Every product &amp; page is database-driven and editable from the CMS.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% if (categories && categories.length) { %>
+<section class="section">
+  <div class="container">
+    <div class="chips">
+      <% categories.forEach(function (c) { %>
+        <a class="chip" href="/shop?category=<%= c.slug %>"><%= c.name %> <span class="chip-count"><%= c.product_count %></span></a>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Featured products</h2>
+      <a href="/shop" class="link-arrow">View all →</a>
+    </div>
+    <% if (featured.length) { %>
+      <div class="product-grid">
+        <% featured.forEach(function (product) { %>
+          <%- include('../partials/product-card', { product }) %>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <p class="muted">No featured products yet. Add some in the admin panel.</p>
+    <% } %>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="feature-row">
+      <div class="feature"><span class="feature-ico">🚚</span><h4>Fast shipping</h4><p class="muted">Dispatched within 1–2 business days.</p></div>
+      <div class="feature"><span class="feature-ico">↩️</span><h4>30-day returns</h4><p class="muted">Not right? Send it back, no fuss.</p></div>
+      <div class="feature"><span class="feature-ico">🔒</span><h4>Secure checkout</h4><p class="muted">Your order is stored safely.</p></div>
+    </div>
+  </div>
+</section>
+
+<% if (latestPosts.length) { %>
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>From the blog</h2>
+      <a href="/blog" class="link-arrow">All posts →</a>
+    </div>
+    <div class="post-grid">
+      <% latestPosts.forEach(function (post) { %>
+        <article class="post-card">
+          <a href="/blog/<%= post.slug %>" class="post-thumb">
+            <% if (post.image) { %><img src="<%= post.image %>" alt="<%= post.title %>" loading="lazy" /><% } %>
+          </a>
+          <div class="post-card-body">
+            <span class="muted small"><%= formatDate(post.published_at) %></span>
+            <h3><a href="/blog/<%= post.slug %>"><%= post.title %></a></h3>
+            <p class="muted"><%= truncate(post.excerpt, 110) %></p>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>

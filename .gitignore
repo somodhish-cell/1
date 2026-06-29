@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Database (generated at runtime)
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+data/sessions.db
+data/sessions.db-journal
+
+# User-uploaded files
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Environment / secrets
+.env
+.env.local
+
+# Vercel
+.vercel
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

@@ -1,0 +1,35 @@
+<article class="section">
+  <div class="container container-narrow">
+    <nav class="breadcrumb"><a href="/">Home</a> / <a href="/blog">Blog</a> / <span><%= post.title %></span></nav>
+    <header class="article-head">
+      <span class="muted small"><%= formatDate(post.published_at) %></span>
+      <h1><%= post.title %></h1>
+      <% if (post.excerpt) { %><p class="lead"><%= post.excerpt %></p><% } %>
+    </header>
+    <% if (post.image) { %>
+      <img class="article-hero" src="<%= post.image %>" alt="<%= post.title %>" />
+    <% } %>
+    <div class="article-body prose"><%- markdown(post.body) %></div>
+  </div>
+</article>
+
+<% if (more.length) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head"><h2>More from the blog</h2></div>
+    <div class="post-grid">
+      <% more.forEach(function (post) { %>
+        <article class="post-card">
+          <a href="/blog/<%= post.slug %>" class="post-thumb">
+            <% if (post.image) { %><img src="<%= post.image %>" alt="<%= post.title %>" loading="lazy" /><% } %>
+          </a>
+          <div class="post-card-body">
+            <span class="muted small"><%= formatDate(post.published_at) %></span>
+            <h3><a href="/blog/<%= post.slug %>"><%= post.title %></a></h3>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>

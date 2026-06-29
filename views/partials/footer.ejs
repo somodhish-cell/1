@@ -1,0 +1,38 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <div class="brand brand-footer">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name"><%= settings.site_name || 'Aurora Goods' %></span>
+      </div>
+      <p class="footer-about"><%= settings.footer_about || '' %></p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="/shop">All products</a>
+      <a href="/blog">Blog</a>
+      <a href="/contact">Contact us</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Get in touch</h4>
+      <% if (settings.contact_email) { %><a href="mailto:<%= settings.contact_email %>"><%= settings.contact_email %></a><% } %>
+      <% if (settings.contact_phone) { %><span class="muted"><%= settings.contact_phone %></span><% } %>
+      <% if (settings.address) { %><span class="muted"><%= settings.address %></span><% } %>
+    </div>
+
+    <div class="footer-col">
+      <h4>Follow</h4>
+      <% if (settings.social_twitter) { %><a href="<%= settings.social_twitter %>" target="_blank" rel="noopener">Twitter / X</a><% } %>
+      <% if (settings.social_instagram) { %><a href="<%= settings.social_instagram %>" target="_blank" rel="noopener">Instagram</a><% } %>
+      <a href="/admin">Admin / CMS</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© <%= year %> <%= settings.site_name || 'Aurora Goods' %>. All rights reserved.</span>
+      <span class="muted">Built with Node.js · Express · SQLite</span>
+    </div>
+  </div>
+</footer>

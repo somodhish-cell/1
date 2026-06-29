@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> · Admin · <%= settings.site_name || 'CMS' %></title>
+  <link rel="stylesheet" href="/css/admin.css" />
+  <%- style %>
+</head>
+<body class="admin-body">
+  <aside class="admin-sidebar">
+    <a href="/" class="admin-brand"><span class="brand-mark">◆</span> <%= settings.site_name || 'CMS' %></a>
+    <nav class="admin-nav">
+      <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">📊 Dashboard</a>
+      <a href="/admin/products" class="<%= currentPath.startsWith('/admin/products') ? 'active' : '' %>">📦 Products</a>
+      <a href="/admin/categories" class="<%= currentPath.startsWith('/admin/categories') ? 'active' : '' %>">🏷️ Categories</a>
+      <a href="/admin/orders" class="<%= currentPath.startsWith('/admin/orders') ? 'active' : '' %>">🧾 Orders</a>
+      <a href="/admin/posts" class="<%= currentPath.startsWith('/admin/posts') ? 'active' : '' %>">✍️ Blog posts</a>
+      <a href="/admin/pages" class="<%= currentPath.startsWith('/admin/pages') ? 'active' : '' %>">📄 Pages</a>
+      <a href="/admin/messages" class="<%= currentPath.startsWith('/admin/messages') ? 'active' : '' %>">✉️ Messages</a>
+      <a href="/admin/settings" class="<%= currentPath.startsWith('/admin/settings') ? 'active' : '' %>">⚙️ Settings</a>
+    </nav>
+    <div class="admin-sidebar-foot">
+      <a href="/" target="_blank" class="muted small">↗ View site</a>
+      <form action="/admin/logout" method="post">
+        <button class="logout-btn" type="submit">Log out</button>
+      </form>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="admin-menu-toggle" data-admin-toggle aria-label="Menu">☰</button>
+      <h1 class="admin-title"><%= title %></h1>
+      <span class="admin-user">👤 <%= admin ? admin.username : '' %></span>
+    </header>
+
+    <% if (flash) { %>
+      <div class="admin-flash admin-flash-<%= flash.type %>"><%= flash.message %></div>
+    <% } %>
+
+    <div class="admin-content">
+      <%- body %>
+    </div>
+  </div>
+  <script src="/js/admin.js"></script>
+  <%- script %>
+</body>
+</html>

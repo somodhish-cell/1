@@ -1,0 +1,43 @@
+<div class="panel">
+  <div class="panel-head">
+    <h2><%= products.length %> products</h2>
+    <a href="/admin/products/new" class="btn btn-sm">+ New product</a>
+  </div>
+
+  <% if (products.length) { %>
+    <table class="table table-hover">
+      <thead>
+        <tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Status</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% products.forEach(function (p) { %>
+          <tr>
+            <td class="cell-thumb">
+              <% if (p.image) { %><img src="<%= p.image %>" alt="" /><% } else { %><div class="mini-placeholder"></div><% } %>
+            </td>
+            <td>
+              <strong><%= p.name %></strong>
+              <% if (p.featured) { %><span class="pill">Featured</span><% } %>
+            </td>
+            <td class="muted"><%= p.category_name || '—' %></td>
+            <td><%= money(p.price) %></td>
+            <td><%= p.stock %></td>
+            <td><span class="badge badge-<%= p.status === 'published' ? 'paid' : 'pending' %>"><%= p.status %></span></td>
+            <td class="cell-actions">
+              <a href="/product/<%= p.slug %>" target="_blank" class="link-arrow">View</a>
+              <a href="/admin/products/<%= p.id %>/edit" class="link-arrow">Edit</a>
+              <form action="/admin/products/<%= p.id %>/delete" method="post" onsubmit="return confirm('Delete this product?')">
+                <button class="link-danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <div class="empty-state">
+      <p>No products yet.</p>
+      <a href="/admin/products/new" class="btn">Add your first product</a>
+    </div>
+  <% } %>
+</div>

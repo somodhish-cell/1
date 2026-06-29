@@ -1,0 +1,50 @@
+<section class="page-head">
+  <div class="container"><h1>Checkout</h1></div>
+</section>
+
+<section class="section">
+  <div class="container checkout-layout">
+    <form class="card form" action="/cart/checkout" method="post">
+      <h3>Delivery details</h3>
+      <div class="field">
+        <label>Full name</label>
+        <input type="text" name="customer_name" value="<%= form.customer_name || '' %>" />
+        <% if (errors.customer_name) { %><span class="field-error"><%= errors.customer_name %></span><% } %>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Email</label>
+          <input type="email" name="email" value="<%= form.email || '' %>" />
+          <% if (errors.email) { %><span class="field-error"><%= errors.email %></span><% } %>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input type="text" name="phone" value="<%= form.phone || '' %>" />
+        </div>
+      </div>
+      <div class="field">
+        <label>Delivery address</label>
+        <textarea name="address" rows="3"><%= form.address || '' %></textarea>
+        <% if (errors.address) { %><span class="field-error"><%= errors.address %></span><% } %>
+      </div>
+      <div class="field">
+        <label>Order notes (optional)</label>
+        <textarea name="notes" rows="2"><%= form.notes || '' %></textarea>
+      </div>
+      <p class="muted small">This demo does not process real payments — placing the order records it in the database with “pending” status.</p>
+      <button type="submit" class="btn btn-lg btn-block">Place order · <%= money(subtotal) %></button>
+    </form>
+
+    <aside class="card order-summary">
+      <h3>Your order</h3>
+      <% items.forEach(function (item) { %>
+        <div class="summary-line">
+          <span><%= item.qty %> × <%= item.name %></span>
+          <strong><%= money(item.price * item.qty) %></strong>
+        </div>
+      <% }); %>
+      <div class="summary-row total"><span>Total</span><strong><%= money(subtotal) %></strong></div>
+      <a href="/cart" class="link-arrow">← Edit cart</a>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+<div class="panel">
+  <div class="panel-head">
+    <h2><%= pages.length %> pages</h2>
+    <a href="/admin/pages/new" class="btn btn-sm">+ New page</a>
+  </div>
+  <% if (pages.length) { %>
+    <table class="table table-hover">
+      <thead><tr><th>Title</th><th>URL</th><th>In nav</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        <% pages.forEach(function (p) { %>
+          <tr>
+            <td><strong><%= p.title %></strong></td>
+            <td class="muted">/page/<%= p.slug %></td>
+            <td><%= p.show_in_nav ? '✓' : '—' %></td>
+            <td><span class="badge badge-<%= p.status === 'published' ? 'paid' : 'pending' %>"><%= p.status %></span></td>
+            <td class="cell-actions">
+              <a href="/page/<%= p.slug %>" target="_blank" class="link-arrow">View</a>
+              <a href="/admin/pages/<%= p.id %>/edit" class="link-arrow">Edit</a>
+              <form action="/admin/pages/<%= p.id %>/delete" method="post" onsubmit="return confirm('Delete this page?')">
+                <button class="link-danger" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <div class="empty-state"><p>No pages yet.</p><a href="/admin/pages/new" class="btn">Create a page</a></div>
+  <% } %>
+</div>

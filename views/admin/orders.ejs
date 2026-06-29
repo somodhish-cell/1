@@ -1,0 +1,21 @@
+<div class="panel">
+  <div class="panel-head"><h2><%= orders.length %> orders</h2></div>
+  <% if (orders.length) { %>
+    <table class="table table-hover">
+      <thead><tr><th>#</th><th>Customer</th><th>Email</th><th>Total</th><th>Status</th><th>Date</th><th></th></tr></thead>
+      <tbody>
+        <% orders.forEach(function (o) { %>
+          <tr>
+            <td>#<%= String(o.id).padStart(4, '0') %></td>
+            <td><strong><%= o.customer_name %></strong></td>
+            <td class="muted"><%= o.email %></td>
+            <td><%= money(o.total) %></td>
+            <td><span class="badge badge-<%= o.status %>"><%= o.status %></span></td>
+            <td class="muted"><%= formatDate(o.created_at) %></td>
+            <td><a href="/admin/orders/<%= o.id %>" class="link-arrow">Details</a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %><div class="empty-state"><p>No orders yet.</p></div><% } %>
+</div>
