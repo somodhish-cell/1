@@ -1,12 +1,17 @@
-# Render Blueprint — deploys this app as-is with a persistent disk.
-# In the Render dashboard: New + → Blueprint → point at this repo.
+# Render Blueprint — free-tier deploy (no persistent disk).
+# In the Render dashboard: New + → Blueprint → point at this repo → Apply.
+#
+# On the free plan the filesystem is ephemeral: the libSQL file lives for the
+# life of the instance and is re-seeded on restart. That's fine for a public
+# demo. For permanent data, upgrade to a paid plan + disk, or set DATABASE_URL
+# + DATABASE_AUTH_TOKEN to a free Turso database (then data persists anywhere).
 services:
   - type: web
     name: aurora-goods
     runtime: node
     plan: free
     buildCommand: npm ci
-    # Seed (idempotent) then start.
+    # Seed (idempotent) then start the server.
     startCommand: node src/seed.js && node server.js
     envVars:
       - key: NODE_ENV
@@ -17,11 +22,3 @@ services:
         value: admin
       # ADMIN_PASSWORD is omitted on purpose -> defaults to "admin123".
       # Change it any time in the Render dashboard, or in Admin → Settings.
-      - key: DATABASE_URL
-        value: file:/var/data/app.db
-      - key: UPLOADS_DIR
-        value: /var/data/uploads
-    disk:
-      name: data
-      mountPath: /var/data # holds both the libSQL file and uploaded images
-      sizeGB: 1
